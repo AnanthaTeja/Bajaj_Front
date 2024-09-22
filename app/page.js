@@ -4,7 +4,7 @@ import Select from "react-select";
 
 function App() {
   const [jsonInput, setJsonInput] = useState(
-    '{"data": ["2", "A", "5", "A"], "file_b64": "data:application/pdf;base64,JVBERi0xLjQKJcKlwrHDqwoKMSAwIG9iaiA8PC9UeXBlIC9DYXRhbG9n"}'
+    '{"data": ["2", "A", "5", "A"],\n "file_b64":"data:application/pdf;base64,JVBERi0xLjQKJcKlwrHDqwoKMSAwIG9iaiA8PC9UeXBlIC9DYXRhbG9n"}'
   );
   const [error, setError] = useState("");
   const [response, setResponse] = useState(null);
@@ -84,7 +84,7 @@ function App() {
     }
 
     return (
-      <ul className="list-disc list-inside">
+      <ul className="list-disc list-inside space-y-2 text-gray-700">
         {filteredResponse.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
@@ -103,33 +103,46 @@ function App() {
   ];
 
   return (
-    <div className="text-center max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">JSON Input Form</h1>
-      <textarea
-        value={jsonInput}
-        onChange={(e) => setJsonInput(e.target.value)}
-        placeholder='Enter JSON here (e.g., {"data": ["A","C","z"]})'
-        className="w-full min-h-[100px] mb-2 p-2 border border-gray-300 rounded text-black"
-      />
-      <button
-        onClick={handleSubmit}
-        className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600"
-      >
-        Submit
-      </button>
-      {error && <div className="text-red-500 mt-2">{error}</div>}
+    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">
+          JSON Input Form
+        </h1>
 
-      {response && (
-        <>
-          <Select
-            isMulti
-            options={options}
-            onChange={handleDropdownChange}
-            className="mt-4 text-black"
-          />
-          <div className="mt-4">{renderResponse()}</div>
-        </>
-      )}
+        <textarea
+          value={jsonInput}
+          onChange={(e) => setJsonInput(e.target.value)}
+          placeholder='Enter JSON here (e.g., {"data": ["A","C","z"]})'
+          className="w-full min-h-[120px] mb-4 p-4 border border-gray-300 rounded-lg text-gray-800 focus:ring-2 focus:ring-blue-400"
+        />
+
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-blue-500 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+        >
+          Submit
+        </button>
+
+        {error && <div className="text-red-600 mt-4">{error}</div>}
+
+        {response && (
+          <>
+            <div className="mt-6">
+              <Select
+                isMulti
+                options={options}
+                onChange={handleDropdownChange}
+                className="text-gray-800"
+              />
+            </div>
+
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h2 className="text-xl font-semibold mb-4">Filtered Response</h2>
+              {renderResponse()}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
