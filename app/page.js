@@ -19,7 +19,7 @@ function App() {
       setError("");
 
       const apiResponse = await fetch(
-        "https://bfhl-express.onrender.com/bfhl",
+        "https://bajaj-bfhs-end.onrender.com/bfhl",
         {
           method: "POST",
           body: JSON.stringify(parsedInput),
@@ -77,7 +77,6 @@ function App() {
           filteredResponse.push("File uploaded: True");
           filteredResponse.push(`File MIME type: ${response.file_mime_type}`);
           filteredResponse.push(`File size: ${response.file_size_kb} KB`);
-          filteredResponse.push(`File name: ${response.file_name}`);
         } else {
           filteredResponse.push("No file uploaded or invalid file");
         }
